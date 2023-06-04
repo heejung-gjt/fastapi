@@ -1,0 +1,1 @@
+pip freeze | grep -v "^#" | grep -v "^-e" | xargs pip uninstall -y

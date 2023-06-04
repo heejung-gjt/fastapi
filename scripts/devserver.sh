@@ -1,0 +1,1 @@
+uvicorn src.apps.test.main:app --reload --port=8091
