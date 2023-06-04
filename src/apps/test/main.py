@@ -38,6 +38,6 @@ app.add_exception_handler(
 )
 
 
-@app.on_event("startup")
-async def startup():
-    await init_pool()
+# @app.on_event("startup")
+# async def startup():
+#     await init_pool()

@@ -1,10 +1,9 @@
 from typing import Final, Optional
 import os
+from dotenv import dotenv_values
 
 def getenv(key: str) -> str:
-    v: Optional[str] = os.getenv(key)
-    assert v is not None, f"Settings {key} is not found"
-    return v
+    return dotenv_values(".env")
 
 
 STAGE: Final[str] = getenv("ENVIRONMENT")
