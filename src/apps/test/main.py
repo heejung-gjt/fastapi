@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from src.packages.db.connect import init_pool
 from fastapi.middleware.cors import CORSMiddleware
-
+from src.apps.test.exception import (
+    AppErrorHandler,
+    JSendError,
+    ExceptionError,
+)
 
 DOCS = """fastapi base 개발 환경입니다"""
 
@@ -20,15 +24,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_exception_handler(
+    JSendError,
+    AppErrorHandler.app_error_exc_handler,
+)
+
+app.add_exception_handler(
+    ExceptionError,
+    AppErrorHandler.exc_handler
+)
+
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"Hello": "World"}
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
+async def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
-
 
 @app.on_event("startup")
 async def startup():
